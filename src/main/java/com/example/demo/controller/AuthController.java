@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.UserCredentials;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtTokenServices;
-import org.springframework.data.authentication.UserCredentials;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,10 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +34,7 @@ public class AuthController {
     public ResponseEntity signin(@RequestBody UserCredentials data) {
         try {
             String username = data.getUsername();
+            System.out.println(username);
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
             List<String> roles = authentication.getAuthorities()
